@@ -113,14 +113,14 @@ jobs:
             });
 
             const pdfArtifact = artifacts.find(artifact =>
-              artifact.name === 'thorvg-pixel-report' && !artifact.expired
+              artifact.name === `thorvg-pixel-report-PR-${prNumber}` && !artifact.expired
             );
 
             if (pdfArtifact) {
               const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${workflowRun.id}/artifacts/${pdfArtifact.id}`;
               body += `- [Download PDF report](${url})\n`;
             } else {
-              body += '- PDF report was not generated.\n';
+              body += '- PDF report skipped: nothing to report.\n';
             }
 
             core.info(`Resolved PR number: #${prNumber}`);

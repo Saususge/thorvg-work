@@ -186,6 +186,11 @@ struct GlRenderer : RenderMethod
     static GlRenderer* gen(uint32_t threads, EngineOption op);
     static bool term();
 
+    // gl renderer specific
+    void disposeTexture(GLuint texId);
+
+    TextureMgr textures;
+
 private:
     enum class BlendSource { Image, Scene, Solid, LinearGradient, RadialGradient };
     friend struct GlSolidBatch;
@@ -209,7 +214,6 @@ private:
     void prepareBlitTask(GlBlitTask* task);
     void prepareCmpTask(GlRenderTask* task, const RenderRegion& vp, uint32_t cmpWidth, uint32_t cmpHeight);
     void endRenderPass(RenderCompositor* cmp);
-    void disposeTexture(GLuint texId);
 
     void flush();
     void clearDisposes();
@@ -231,7 +235,6 @@ private:
     Array<GlRenderTargetPool*> mBlendPool;
     Array<GlRenderPass*> mRenderPassStack;
     Array<GlCompositor*> mComposeStack;
-    TextureMgr mTextures;
     GlSolidBatch mSolidBatch;
     GlStencilCoverBatch mStencilCoverBatch;
 
